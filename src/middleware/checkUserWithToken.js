@@ -19,7 +19,7 @@ const extractToken = async (req, res, next) => {
     const userExists = await User.findOne({ email: details.data.email });
     // console.log("+++++",userExists)
     if (!userExists) {
-      return res.status(401).json({ status: 401, message: "User not found!" });
+      return res.status(401).json({ status: 401, message: "Your session has expired, please login!" });
     }
     req.user = userExists;
     next();

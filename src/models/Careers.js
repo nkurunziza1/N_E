@@ -4,7 +4,7 @@ const enumValue = ["female"," male", "other"]
 const workingPreference = ["remote", "onsite", "hybrid"]
 const CareersSchema = new mongoose.Schema(
   {
-    firsname: String,
+    firstname: String,
     secondname: String,
     email: String,
     telephone: String,

@@ -47,3 +47,14 @@ export const createTestmonials = async (req, res) => {
       return res.status(500).json({ massage:  error });
     }
   };
+
+  export const getAllTestmonial = async (req, res) => {
+    try {
+      const allTestmonial = await Testmonials.find({});
+      console.log(allTestmonial)
+      return res.status(200).json(allTestmonial);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+  

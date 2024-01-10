@@ -1,10 +1,10 @@
-import Careers from "../models/careers.js";
+import Careers from "../models/Careers.js"
 import User from "../models/users.js"
 
 export const apply = async (req, res) => {
   try {
     const {
-      firsname,
+      firstname,
       secondname,
       email,
       telephone,
@@ -25,7 +25,7 @@ export const apply = async (req, res) => {
     const nationalId = req.files.nationalId[0].path
     const certificate = req.files.certificate.map((file) => file.path);
     const application = await Careers.create({
-      firsname,
+      firstname,
       secondname,
       email,
       telephone,

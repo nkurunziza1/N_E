@@ -32,8 +32,9 @@ const connect = () => {
     });
 };
 
-app.use("/files", express.static("files"));
 app.use(cors());
+
+app.use("/files", express.static("files"));
 app.use(cookieParser());
 app.use(express.json());
 app.use("/pdf", getPdf);
@@ -41,6 +42,7 @@ app.use("/api/v1", authRoutes);
 app.use("/api/v1", NewsLetterRoutes);
 app.use("/api/v1", PortifolioRoutes);
 app.use("/api/v1", Applicationroutes)
+app.use("/api/v1", TestmonialRoutes)
 app.use("/api/v1", NewsRoutes)
 app.use("/api/v1", BlogsRoutes);
 app.use(morgan("dev"));

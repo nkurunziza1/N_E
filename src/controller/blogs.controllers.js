@@ -25,8 +25,10 @@ export const createBlogs = async (req, res) => {
       message: "a Blog is created successfully!",
     });
 
-
-    await sendBlogEmail(blogEmail, userEmails, blog.title);
+     if(userEmails.length > 0){
+      return await sendBlogEmail(blogEmail, userEmails, blog.title);
+     }
+    
  
   } catch (error) {
     return res.status(500).json({ error: error });

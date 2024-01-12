@@ -6,11 +6,9 @@ const emailSchema = Joi.object({
 
   const emailInput = (req, res, next) => {
     const { error } = emailSchema.validate(req.body);
-  
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
-  
     next();
   };
 

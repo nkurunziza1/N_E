@@ -76,3 +76,74 @@ export const htmlTemplate = (blogTitle, blogDescription, imageUrl) => `
   </html>
 `;
 
+export const composeEmail = (name, description) => `
+<!DOCTYPE html>
+  <html lang="en"   ⚡4email>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>email from website</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+      }
+      .footer {
+        text-align: center;
+        color: #999999;
+        font-size: 12px;
+        margin-top: 20px;
+      }
+      span{
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="log">
+      <h2 class="blog-title">${name}</h2>
+      </div>
+      <p class="blog-description">${description}</p>
+      <p >Best regard,<br></br><span>${name}</span>
+      <p class="footer">This email was sent from stylos website messages</p>
+    </div>
+  </body>
+  </html>
+`;
+
+export const sendEmailToUser =  (name, description) => `
+<!DOCTYPE html>
+  <html lang="en"   ⚡4email>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>email from website</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+      }
+      .footer {
+        text-align: center;
+        color: #999999;
+        font-size: 12px;
+        margin-top: 20px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="log">
+     <p>Hello, ${name}</p>
+      </div>
+      <p class="blog-description">${description}</p>
+      <p >Best regard,<br></br><span>Stylos consults</span>
+      <p class="footer">This email was sent from stylos website messages</p>
+    </div>
+  </body>
+  </html>
+`;

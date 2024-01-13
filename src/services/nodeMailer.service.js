@@ -1,4 +1,3 @@
-
 import nodeMailer from "nodemailer";
 
 export async function sendBlogEmail(HTML, user, subject, text) {

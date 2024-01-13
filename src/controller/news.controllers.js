@@ -16,8 +16,11 @@ export const createNews = async (req, res) => {
     const image= req.file.path
 
     const userSubscribedEmails = await NewsLetter.find({}, 'email');
-    const userEmails = userSubscribedEmails.map(user => user.email);
 
+    const userEmails = userSubscribedEmails.map(user => user.email);
+    if(!userEmails){
+      return ;
+    }
     const news =  await News.create({title, description, image})
     await news.save();
   

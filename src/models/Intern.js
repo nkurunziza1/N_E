@@ -1,17 +1,18 @@
+
+
 import mongoose from "mongoose";
 
-const enumValue = ["female", " male", "other"];
 const workingPreference = ["remote", "onsite", "hybrid"];
-const CareersSchema = new mongoose.Schema(
+const InternSchema = new mongoose.Schema(
   {
     firstname: String,
     secondname: String,
     email: String,
     telephone: String,
-    location: String,
+    locl: String,
+    teleation: String,
     address: String,
     gender: String,
-    nationalId: String,
     cv: String,
     certificate: [],
     industry: [],
@@ -24,4 +25,4 @@ const CareersSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-export default mongoose.model("Careers", CareersSchema);
+export default mongoose.model("Intern", InternSchema);

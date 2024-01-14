@@ -101,6 +101,7 @@ export const composeEmail = (name, description) => `
     </style>
   </head>
   <body>
+  
     <div class="email-container">
       <div class="log">
       <h2 class="blog-title">${name}</h2>
@@ -113,7 +114,7 @@ export const composeEmail = (name, description) => `
   </html>
 `;
 
-export const sendEmailToUser =  (name, description) => `
+export const sendEmailToUser = (name, description) => `
 <!DOCTYPE html>
   <html lang="en"   ⚡4email>
   <head>
@@ -136,6 +137,7 @@ export const sendEmailToUser =  (name, description) => `
     </style>
   </head>
   <body>
+  <img src="https://res.cloudinary.com/igitego-hotels/image/upload/v1704450169/stylos/sjcladbmfpkmguqia9tz.png" alt="Blog Image" width="100" height="50" class="logo1">
     <div class="email-container">
       <div class="log">
      <p>Hello, ${name}</p>

@@ -15,7 +15,7 @@ export const createBlogs = async (req, res) => {
     }
     const userSubscribedEmails = await NewsLetter.find({}, "email");
     const userEmails = userSubscribedEmails.map((user) => user.email);
-    
+
     if (userSubscribedEmails) {
       if (!userEmails) {
         return;
@@ -57,7 +57,6 @@ export const getSingleBlog = async (req, res) => {
 export const getAllBlog = async (req, res) => {
   try {
     const allBlog = await Blog.find({});
-    console.log(allBlog);
     return res.status(200).json(allBlog);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -79,7 +78,6 @@ export const updateSingleBlog = async (req, res) => {
       return res.status(404).json({ message: "blog not found!" });
     }
     let image = blogToUpdate.image;
-    console.log("file in", req.file);
     if (req.file) {
       image = req.file.path;
     }
@@ -98,7 +96,6 @@ export const updateSingleBlog = async (req, res) => {
       .status(200)
       .json({ blogUpdate, message: "updated successfully!" });
   } catch (error) {
-    console.error("Error in updateSingleBlog:", error);
     return res.status(500).json({ message: error.message });
   }
 };

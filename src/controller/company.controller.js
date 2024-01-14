@@ -26,7 +26,6 @@ export const companyApply = async (req, res) => {
       message: " Company Register successfully",
     });
   } catch (err) {
-    console.error("Error:", err);
     res.status(500).json({ error: err.message || "Internal Server Error" });
   }
 };

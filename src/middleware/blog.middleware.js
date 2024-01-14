@@ -20,10 +20,7 @@ export const uploadArray = (name) => async (req, res, next) => {
 export const uploadfile = (name ) => async (req, res, next) => {
   try {
     upload.single(name)(req, res, (err) => {
-      console.log(req.body);
-      console.log(req.file);
       if (err) {
-        console.log(err)
         return res.status(400).json({
           status: 400,
           message: "Something went wrong while trying to upload Image",

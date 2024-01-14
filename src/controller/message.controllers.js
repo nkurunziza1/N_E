@@ -21,7 +21,6 @@ export const messageConsult = async (req, res) => {
       message: "Thank you for contact us !",
     });
   } catch (err) {
-    console.error("Error:", err);
     res.status(500).json({ error: err.message || "Internal Server Error" });
   }
 };

@@ -7,7 +7,6 @@ import User from "../models/users.js";
 export const signin = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    console.log("user", user);
     if (!user) {
       return res.status(404).send({ message: "user not found" });
     }

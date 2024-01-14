@@ -10,7 +10,6 @@ export  const uploadPdf = async (req, res) => {
     });
     res.status(200).send(data);
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -20,7 +19,7 @@ export const getPdf = async(req, res) => {
        res.send(data)
 
     }catch(error){
-        console.log(error)
+       throw error
     }
 }
 

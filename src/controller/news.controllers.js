@@ -53,7 +53,6 @@ export const getSingleNews = async (req, res) => {
 export const getAllNews = async (req, res) => {
   try {
     const allNews = await News.find({});
-    console.log(allNews)
     return res.status(200).json(allNews);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -91,7 +90,6 @@ export const updateSingleNews = async (req, res) => {
       .status(200)
       .json({ newsUpdate, message: "updated successfully!" });
   } catch (error) {
-    console.error("Error in updateSingleNews:", error);
     return res.status(500).json({ message: error.message });
   }
 };

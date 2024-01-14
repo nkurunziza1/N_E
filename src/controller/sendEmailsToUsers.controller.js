@@ -30,7 +30,6 @@ export const sendEmailsToAllUsers = async (req, res) => {
       email: intern.email,
       name: intern.firstname,
     }));
-
     if (
       !(companyEmails.length || careersEmails.length || internEmails.length)
     ) {
@@ -46,12 +45,11 @@ export const sendEmailsToAllUsers = async (req, res) => {
     for (const userData of emailsWithData) {
       const { email, name } = userData;
       const html = sendEmailToUser(name, description);
-      await sendBlogEmail(html, email, "stylos consults");
+      await sendBlogEmail(html, [email], "stylos consults");
     }
 
     return res.status(200).json({ message: "Emails sent successfully" });
   } catch (error) {
-    console.error("Error sending emails:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -59,26 +57,39 @@ export const sendEmailsToAllUsers = async (req, res) => {
 export const sendEmailToIndividual = async (req, res) => {
   const userId = req.user.id;
   const user = await User.findById(userId);
+
   if (user.role !== "superAdmin") {
-    return res.status(401).json({ message: "only superAdmin can view" });
+    return res.status(401).json({ message: "Only superAdmin can view" });
   }
 
   const { id } = req.params;
   const { description } = req.body;
-  const userEmails =
-    (await Careers.findById({ _id: id })) ||
-    Company.findById({ _id: id }) ||
-    Intern.findById({ _id: id });
+
+  let userEmails;
+
   try {
+
+    userEmails =
+      (await Careers.findById(id)) ||
+      (await Company.findById(id)) ||
+      (await Intern.findById(id));
+
     if (!userEmails) {
       return res.status(404).json({ error: "User not found" });
+    }
+
+    const recipientEmail = userEmails.email;
+
+    if (!recipientEmail) {
+      return res.status(400).json({ error: "User email not found" });
     }
 
     const html = sendEmailToUser(
       userEmails.name || userEmails.firstname,
       description
     );
-      await sendBlogEmail(html, [userEmails.email], "stylos consults");
+
+    await sendBlogEmail(html, [recipientEmail], "stylos consults");
 
     return res.status(200).json({ message: "Email sent successfully" });
   } catch (error) {

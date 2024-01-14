@@ -42,7 +42,6 @@ export const getSinglePortifolio = async (req, res) => {
 export const getAllPortifolio = async (req, res) => {
   try {
     const allPortifolio = await Portifolio.find({});
-    console.log(allPortifolio)
     return res.status(200).json(allPortifolio);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -62,7 +61,6 @@ export const updateSinglePortifolio = async (req, res) => {
       return res.status(404).json({ message: "Portifolio not found!" });
     }
     let image = portifolioToUpdate.image;
-    console.log("file in", req.file)
     if (req.file) {
       image = req.file.path;
     }
@@ -81,7 +79,6 @@ export const updateSinglePortifolio = async (req, res) => {
       .status(200)
       .json({ portifolioUpdate, message: "updated successfully!" });
   } catch (error) {
-    console.error("Error in updateSinglePortifolio:", error);
     return res.status(500).json({ message: error.message });
   }
 };

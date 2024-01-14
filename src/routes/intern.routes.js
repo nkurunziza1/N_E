@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+    deleteIntern,
   getInternApplications,
   getSingleApplicationIntern,
   internApply,
@@ -19,5 +20,6 @@ router.post(
 );
 router.get("/intern/:id", extractToken, getSingleApplicationIntern);
 router.get("/intern", extractToken, getInternApplications);
+router.delete("/intern", extractToken, deleteIntern)
 
 export default router;

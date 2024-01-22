@@ -9,6 +9,7 @@ const CompanySchema = new mongoose.Schema(
     website: String,
     location: String,
     address: String,
+    industry: [],
   },
   {
     timestamps: true,

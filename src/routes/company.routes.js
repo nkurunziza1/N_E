@@ -1,16 +1,19 @@
-
 import { Router } from "express";
 import {
-    companyApply,
-    getCompanyApplications,
-    getSingleCompanyApplication,
-  } from "../controller/company.controller.js";
+  companyApply,
+  deleteCompanies,
+  deleteSinglecompany,
+  getCompanyApplications,
+  getSingleCompanyApplication,
+} from "../controller/company.controller.js";
 import extractToken from "../middleware/checkUserWithToken.js";
-const router = Router()
+const router = Router();
 
 router.post("/company", companyApply);
+router.get("/company",extractToken, getCompanyApplications);
 router.get("/company/:id", extractToken, getSingleCompanyApplication);
-router.get("/company", extractToken, getCompanyApplications);
+router.delete("/company/:id", deleteSinglecompany);
+router.delete("/company", deleteCompanies);
 
 
-export default router
+export default router;

@@ -4,17 +4,16 @@ import { composeEmail } from "../utils/blog.js";
 
 export const messageConsult = async (req, res) => {
   try {
-    const { firstname, secondname, email, telephone, description } = req.body;
+    const { name, email, telephone, description } = req.body;
     const message = await Message.create({
-      firstname,
-      secondname,
+      name,
       email,
       telephone,
       description,
     });
 
     await message.save();
-    const html = composeEmail(firstname, description)
+    const html = composeEmail(name, description)
     sendBlogEmail(html, process.env.SENDING_EMAIL, "message from website")
     return res.status(200).json({
       message,

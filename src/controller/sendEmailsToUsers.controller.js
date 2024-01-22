@@ -7,7 +7,7 @@ import { sendBlogEmail } from "../services/nodeMailer.service.js";
 import User from "../models/users.js";
 
 export const sendEmailsToAllUsers = async (req, res) => {
-  const { description } = req.body;
+  const { message } = req.body;
   const userId = req.user.id;
   const user = await User.findById(userId);
   if (user.role !== "superAdmin") {
@@ -44,7 +44,7 @@ export const sendEmailsToAllUsers = async (req, res) => {
 
     for (const userData of emailsWithData) {
       const { email, name } = userData;
-      const html = sendEmailToUser(name, description);
+      const html = sendEmailToUser(name, message);
       await sendBlogEmail(html, [email], "stylos consults");
     }
 
@@ -54,16 +54,66 @@ export const sendEmailsToAllUsers = async (req, res) => {
   }
 };
 
-export const sendEmailToIndividual = async (req, res) => {
+export const sendEmailsToCategory = async (req, res) => {
+  const { message } = req.body;
   const userId = req.user.id;
   const user = await User.findById(userId);
 
+  if (user.role !== 'superAdmin') {
+    return res.status(401).json({ message: 'Only superAdmin can view' });
+  }
+
+  const { category } = req.params;
+
+  try {
+    let emails = [];
+
+    switch (category) {
+      case 'companies':
+        emails = await Company.find({}, 'email name');
+        break;
+      case 'consults':
+        emails = await Careers.find({}, 'email firstname');
+        break;
+      case 'interns':
+        emails = await Intern.find({}, 'email firstname');
+        break;
+      default:
+        return res.status(400).json({ error: 'Invalid category' });
+    }
+
+    const emailsWithData = emails.map((user) => ({
+      email: user.email,
+      name: user.name || user.firstname,
+    }));
+
+    if (!emailsWithData.length) {
+      return res.status(400).json({ error: 'No emails found' });
+    }
+
+    for (const userData of emailsWithData) {
+      const { email, name } = userData;
+      const html = sendEmailToUser(name, message);
+      await sendBlogEmail(html, [email], 'stylos consults');
+    }
+
+    return res.status(200).json({ message: 'Emails sent successfully' });
+  } catch (error) {
+    console.error(error); 
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+export const sendEmailToIndividual = async (req, res) => {
+  const userId = req.user.id;
+  const user = await User.findById(userId);
   if (user.role !== "superAdmin") {
     return res.status(401).json({ message: "Only superAdmin can view" });
   }
 
   const { id } = req.params;
-  const { description } = req.body;
+  const { message } = req.body;
 
   let userEmails;
 
@@ -86,7 +136,7 @@ export const sendEmailToIndividual = async (req, res) => {
 
     const html = sendEmailToUser(
       userEmails.name || userEmails.firstname,
-      description
+      message
     );
 
     await sendBlogEmail(html, [recipientEmail], "stylos consults");

@@ -114,7 +114,7 @@ export const composeEmail = (name, description) => `
   </html>
 `;
 
-export const sendEmailToUser = (name, description) => `
+export const sendEmailToUser = (name, message) => `
 <!DOCTYPE html>
   <html lang="en"   ⚡4email>
   <head>
@@ -142,7 +142,7 @@ export const sendEmailToUser = (name, description) => `
       <div class="log">
      <p>Hello, ${name}</p>
       </div>
-      <p class="blog-description">${description}</p>
+      <p class="blog-description">${message}</p>
       <p >Best regard,<br></br><span>Stylos consults</span>
       <p class="footer">This email was sent from stylos website messages</p>
     </div>

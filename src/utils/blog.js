@@ -106,7 +106,10 @@ export const composeEmail = (name, description) => `
       <div class="log">
       <h2 class="blog-title">${name}</h2>
       </div>
-      <p class="blog-description">${description}</p>
+      <div
+            className="mt-2 line-clamp-3 text-sm/relaxed  font-poppins"
+              dangerouslySetInnerHTML=${{ __html: description}}
+            />
       <p >Best regard,<br></br><span>${name}</span>
       <p class="footer">This email was sent from stylos website messages</p>
     </div>

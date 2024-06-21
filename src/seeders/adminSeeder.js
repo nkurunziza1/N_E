@@ -6,14 +6,13 @@ const adminSeeder = async () => {
   try {
     const adminUser = await User.findOne({ fullname: "super admin" });
     if (adminUser) {
-      console.log("Admin user is connected!");
       return;
     }
 
     const adminUserData = {
-      fullname: "super admin",
-      email: "super@stylos.com",
-      role: "superAdmin",
+      fullname: "admin",
+      email: "admin@waste.com",
+      role: "admin",
       telephone: process.env.TELEPHONE,
       isEmailVerified: true,
     };
@@ -21,7 +20,8 @@ const adminSeeder = async () => {
     const hashedPassword = await BcryptUtil.hash(process.env.ADMIN_PWD);
 
     adminUserData.password = hashedPassword;
-
+    const ExitUser = await User.find({ email: adminUserData.email });
+    if (ExitUser) return;
     const createdAdminUser = await User.create(adminUserData);
 
     const token = generateToken(createdAdminUser);

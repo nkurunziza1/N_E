@@ -1,5 +1,4 @@
 import { verifyToken } from "../utils/Tokens.js";
-import Blacklist from "../models/BlackListModel.js";
 import User from "../models/users.js";
 
 const extractToken = async (req, res, next) => {
@@ -8,17 +7,14 @@ const extractToken = async (req, res, next) => {
       return res.status(401).json({ status: 401, message: "Please sign in" });
     }
     const token = req.header("Authorization").split(" ")[1];
-    const isTokenExist = await Blacklist.findOne({ token });
-
-    if (isTokenExist)
-      return res
-        .status(200)
-        .json({ message: "Your session has expired, please login!" });
 
     const details = verifyToken(token);
     const userExists = await User.findOne({ email: details.data.email });
     if (!userExists) {
-      return res.status(401).json({ status: 401, message: "Your session has expired, please login!" });
+      return res.status(401).json({
+        status: 401,
+        message: "Your session has expired, please login!",
+      });
     }
     req.user = userExists;
     next();

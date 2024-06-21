@@ -3,7 +3,30 @@ import { generateToken } from "../utils/Tokens.js";
 import User from "../models/users.js";
 
 
+export const signup = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      return res.status(409).send({ message: "Email already exists" });
+    }
+    const { fullname, email, password, telephone, location } = req.body;
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({
+      fullname,
+      email,
+      password: hashedPassword,
+      telephone,
+      location,
+    });
+
+    await newUser.save();
+    res.status(201).send({ message: "User created successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
 export const signin = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });

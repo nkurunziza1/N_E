@@ -8,13 +8,7 @@ const signUpSchema = Joi.object({
   fullname: Joi.string().min(1).trim().required(),
   telephone: Joi.string().min(1).trim().required(),
   email: Joi.string().email().trim().required(),
-  password: PasswordComplexity({
-    min: 3,
-    max: 20,
-    lowerCase: 1,
-    upperCase: 1,
-    numeric: 1,
-  }).required(),
+  password: Joi.string().required()
 });
 
 const validatesignUp = validateForm(signUpSchema);

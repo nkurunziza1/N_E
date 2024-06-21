@@ -1,6 +1,6 @@
 import nodeMailer from "nodemailer";
 
-export async function sendBlogEmail(HTML, user, subject, text) {
+export async function sendScheduleEmail(HTML, user, subject, text) {
   const transport = nodeMailer.createTransport({
     service: "gmail",
     auth: {
